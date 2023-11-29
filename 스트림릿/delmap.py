@@ -6,7 +6,7 @@ from streamlit_folium import folium_static
 import streamlit as st
 
 # 배차 데이터 로드
-file_path = '배차.csv'
+file_path = 'raw.csv'
 df = pd.read_csv(file_path)
 
 # GeoJSON 파일 로드
