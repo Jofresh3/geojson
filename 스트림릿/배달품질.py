@@ -6,11 +6,11 @@ from streamlit_folium import folium_static
 import streamlit as st
 
 # 배차 데이터 로드
-file_path = '스트림릿/배차.csv'
+file_path = '배차.csv'
 df = pd.read_csv(file_path)
 
 # GeoJSON 파일 로드
-geojson_path = '스트림릿/TL_SCCO_SIG.json'
+geojson_path = 'TL_SCCO_SIG.json'
 gdf = gpd.read_file(geojson_path)
 
 # 'gdf'의 'SIG_CD' 열의 데이터 타입을 문자열로 변경
