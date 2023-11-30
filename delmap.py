@@ -7,12 +7,18 @@ import streamlit as st
 import numpy as np
 import gspread
 from google.oauth2.service_account import Credentials
+import os
+from dotenv import load_dotenv
+import json
 
-# Google Sheets API에 연결하고 인증을 처리합니다.
-# Load Google Spreadsheet authentication information
-scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-creds = ServiceAccountCredentials.from_json_keyfile_name('auth_key', scope)
-gc = gspread.authorize(creds)
+# GitHub Secrets에서 Google API 키 가져오기
+google_api_key_str = st.secrets["GOOGLE_API_KEY"]
+google_api_key = json.loads(google_api_key_str)
+
+# Credentials 객체 생성
+credentials = Credentials.from_service_account_info(google_api_key, scopes=['https://www.googleapis.com/auth/spreadsheets'])
+gc = gspread.authorize(credentials)
+
 
 # 구글 시트 문서 이름을 사용하여 문서를 열거나 만듭니다.
 spreadsheet = gc.open_by_key('155H5Kk4W9vVwN03vHJwUIjRVw563Vx26l1Kd5mPxV-k')
