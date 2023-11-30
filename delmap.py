@@ -4,13 +4,31 @@ import folium
 from folium import plugins
 from streamlit_folium import folium_static
 import streamlit as st
+import numpy as np
+import gspread
+from google.oauth2.service_account import Credentials
 
-# 배차 데이터 로드
-file_path = 'raw.csv'
-df = pd.read_csv(file_path)
+# Google Sheets API에 연결하고 인증을 처리합니다.
+credentials = Credentials.from_service_account_file("auth_key", scopes=['https://www.googleapis.com/auth/spreadsheets'])
+gc = gspread.authorize(credentials)
+
+# 구글 시트 문서 이름을 사용하여 문서를 열거나 만듭니다.
+spreadsheet = gc.open_by_key('155H5Kk4W9vVwN03vHJwUIjRVw563Vx26l1Kd5mPxV-k')
+
+# 'main_raw' 시트를 선택합니다.
+worksheet = spreadsheet.worksheet('rawdata>')
+
+# 시트의 데이터를 가져와 DataFrame으로 변환합니다.
+data = worksheet.get_all_values()
+headers = data[0]
+df = pd.DataFrame(data[1:], columns=headers)
+
+# '총_주문수'와 같은 숫자 형식의 열을 숫자로 변환하고 NaN 값을 0으로 채웁니다.
+numeric_columns = ['총_주문수', '배차 30분이상', '총배달시간 60분이상', '알뜰배차시간', '알뜰픽업시간', '알뜰총배달시간', '알뜰고안시준수율', '배차30분비중', '배달60분비중']
+df[numeric_columns] = df[numeric_columns].apply(pd.to_numeric, errors='coerce').fillna(0)
 
 # GeoJSON 파일 로드
-geojson_path = 'SIG_KOREA.json'
+geojson_path = 'streamlit/SIG_KOREA.json'
 gdf = gpd.read_file(geojson_path)
 
 # 'gdf'의 'SIG_CD' 열의 데이터 타입을 문자열로 변경
@@ -26,7 +44,7 @@ selected_service_type = st.sidebar.selectbox('서비스 타입 선택', df['serv
 filtered_data = df[df['service_type'] == selected_service_type]
 
 # 정보 선택을 위한 sidebar
-selected_info = st.sidebar.selectbox('표시할 정보 선택', ['총_주문수', '배차 30분이상', '총배달시간 60분이상', '알뜰배차시간', '알뜰픽업시간', '알뜰총배달시간', '알뜰고안시준수율','배차30분비중','배달60분비중'])
+selected_info = st.sidebar.selectbox('표시할 정보 선택', numeric_columns)
 
 # 데이터 병합
 merged_data = pd.merge(gdf, filtered_data, how='left', left_on='SIG_CD', right_on='rgn2_cd')
@@ -35,7 +53,7 @@ merged_data = pd.merge(gdf, filtered_data, how='left', left_on='SIG_CD', right_o
 m = folium.Map(location=[36.5, 127.5], zoom_start=7, control_scale=True)
 
 # Choropleth를 사용하여 색상 표시
-folium.Choropleth(
+choropleth = folium.Choropleth(
     geo_data=merged_data,
     name='choropleth',
     data=merged_data,
@@ -45,9 +63,12 @@ folium.Choropleth(
     fill_opacity=0.7,
     line_opacity=0.2,
     legend_name=selected_info,
-    highlight=True,  # 마우스 오버 시 하이라이트 효과 추가
-    smooth_factor=0.7,  # 폴리곤 간 경계 부드럽게 처리
+    highlight=True,
+    smooth_factor=0.7,
 ).add_to(m)
+
+# 마우스 오버 시 팝업에 정보 추가
+choropleth.geojson.add_child(folium.features.GeoJsonTooltip(['SIG_KOR_NM'], labels=False))
 
 # 행정 경계 안에 평균 데이터값 추가
 for idx, row in merged_data.iterrows():
