@@ -11,7 +11,7 @@ from google.oauth2.service_account import Credentials
 # Google Sheets API에 연결하고 인증을 처리합니다.
 # Load Google Spreadsheet authentication information
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-creds = ServiceAccountCredentials.from_json_keyfile_name('auth_key', scope)
+creds = ServiceAccountCredentials.from_json_keyfile_name('.gitignore/auth_key', scope)
 gc = gspread.authorize(creds)
 
 # 구글 시트 문서 이름을 사용하여 문서를 열거나 만듭니다.
