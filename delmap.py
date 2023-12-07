@@ -90,5 +90,14 @@ for idx, row in merged_data.iterrows():
         icon=folium.DivIcon(html=f'<div style="font-size: 10pt;">{avg_value:.2f}</div>')
     ).add_to(m)
 
+# TOP5 표시를 위한 코드 추가
+st.subheader(f'{selected_service_type} 서비스 타입 - {selected_info} TOP 5 지역')
+top5_data = filtered_data.groupby(['rgn1_nm', 'rgn2_nm'])[selected_info].sum().nlargest(5).reset_index()
+if not top5_data.empty:
+    top5_data_table = top5_data.rename(columns={'rgn2_nm': '지역', selected_info: f'{selected_info} 합계'})
+    st.table(top5_data_table)
+else:
+    st.warning("데이터가 없습니다.")
+
 # Folium 지도를 Streamlit에 표시
 folium_static(m)
