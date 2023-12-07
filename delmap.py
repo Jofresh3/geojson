@@ -10,15 +10,19 @@ from google.oauth2.service_account import Credentials
 import os
 from dotenv import load_dotenv
 import json
+import io
 
-# GitHub Secrets에서 Google API 키 가져오기
-google_api_key_str = st.secrets["GOOGLE_API_KEY"]
-google_api_key = json.loads(google_api_key_str)
 
-# Credentials 객체 생성
-credentials = Credentials.from_service_account_info(google_api_key, scopes=['https://www.googleapis.com/auth/spreadsheets'])
-gc = gspread.authorize(credentials)
+uploaded_file = st.sidebar.file_uploader("apikey 업로드", type=["json"])
 
+if uploaded_file is not None:
+    # 업로드된 파일을 읽어서 API 키 업데이트
+    api_key_data = json.load(io.StringIO(uploaded_file.getvalue().decode("utf-8")))
+    credentials = Credentials.from_service_account_info(api_key_data, scopes=['https://www.googleapis.com/auth/spreadsheets'])
+    gc = gspread.authorize(credentials)
+#credentials = Credentials.from_service_account_file('/Users/chjo/Desktop/python_practice/크롤링/woowahan_google_key.json', scopes=['https://www.googleapis.com/auth/spreadsheets'])
+#gc = gspread.authorize(uploaded_file)
+#혼자 사용할꺼라면 apikey를 그냥 파일로 가져와서 하면 더 편함!! 위에 주석처리된것 이용하면됨.
 
 # 구글 시트 문서 이름을 사용하여 문서를 열거나 만듭니다.
 spreadsheet = gc.open_by_key('155H5Kk4W9vVwN03vHJwUIjRVw563Vx26l1Kd5mPxV-k')
