@@ -28,6 +28,7 @@ if uploaded_file is not None:
 # 구글 시트 문서 이름을 사용하여 문서를 열거나 만듭니다.
 spreadsheet = gc.open_by_key('155H5Kk4W9vVwN03vHJwUIjRVw563Vx26l1Kd5mPxV-k')
 
+
 # 'main_raw' 시트를 선택합니다.
 worksheet = spreadsheet.worksheet('시트15')
 
