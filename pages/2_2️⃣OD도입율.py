@@ -12,6 +12,8 @@ from dotenv import load_dotenv
 import json
 import io
 import math
+print(os.getcwd())
+
 
 uploaded_file = st.sidebar.file_uploader("apikey 업로드", type=["json"])
 
