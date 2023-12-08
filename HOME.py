@@ -21,7 +21,7 @@ st.markdown("""
 ## 📄 Contents
 
 ##### <a href="배달품질" target='_self'>배달품질</a>
-##### <a href="뭘넣으면좋을까" target='_self'>page2</a>
+##### <a href="OD 도입율" target='_self'>OD 도입율</a>
 
 ---
 
