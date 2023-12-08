@@ -6,3 +6,4 @@ streamlit-folium==0.16.0
 gspread==5.12.1
 folium>=0.13,<0.16
 numpy==1.26.2
+google-auth==2.23.3
