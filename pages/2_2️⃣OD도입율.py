@@ -41,7 +41,7 @@ numeric_columns = ['OD 도입율','알뜰배달 도입율']
 df[numeric_columns] = df[numeric_columns].apply(pd.to_numeric, errors='coerce').fillna(0)
 
 # GeoJSON 파일 로드
-geojson_path = 'streamlit/SIG_KOREA.json'
+geojson_path = 'SIG_KOREA.json'
 gdf = gpd.read_file(geojson_path)
 
 # 'gdf'의 'SIG_CD' 열의 데이터 타입을 문자열로 변경
