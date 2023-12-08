@@ -19,40 +19,27 @@ st.markdown("""
 
 ---
 
-## 👨‍🎓 Taking the course
+## 👨‍🎓 Others
 
 ####
 
-##### 👥 2023 Cohort
+##### 👥 HI guys
 
-* **Start**: 16 January 2023 (Monday) at 18:00 CET
-* **Registration link**: https://airtable.com/shr6oVXeQvSI5HuWD
-* Subscribe to our [public Google Calendar](https://calendar.google.com/calendar/?cid=ZXIxcjA1M3ZlYjJpcXU0dTFmaG02MzVxMG9AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ) (it works from Desktop only)
-* [Cohort folder](cohorts/2023/) with homeworks and deadlines""", unsafe_allow_html=True)
+# 무지개색 스타일링 함수
+def rainbow_text(text):
+    colors = ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#4B0082', '#8B00FF']
+    return ''.join([f'<span style="color:{color};">{char}</span>' for char, color in zip(text, colors)])
 
-st.error("2023 Cohort ended in the 18th May of 2023. To see 2023 cohort ressources see this [link](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/cohorts/2023).")
+# 메인 메시지
+main_message = "이곳은 데이터를 활용한 웹페이지입니다. 데이터의 힘으로 더 나은 인사이트를 찾고, 즐겁게 데이터를 탐험하는 여정에 함께 참여해보세요."
 
-st.markdown("""
-##### 👨‍🔧 Self-paced mode
+# 무지개색 스타일링 적용
+styled_message = rainbow_text(main_message)
 
-All the materials of the course are freely available, so that you can take the course at your own pace
+# Streamlit에 무지개색 텍스트 표시
+st.markdown(styled_message, unsafe_allow_html=True)
 
-* Follow the suggested syllabus (see below) week by week
-* You don't need to fill in the registration form. Just start watching the videos and join Slack
-* Check [FAQ](https://docs.google.com/document/d/19bnYs80DwuUimHM65UV3sylsCn2j1vziPOwzBwQrebw/edit?usp=sharing) if you have problems
-* If you can't find a solution to your problem in FAQ, ask for help in Slack
-
----
-
-### 📓 Prerequisites
-
-To get the most out of this course, you should feel comfortable with coding and command line
-and know the basics of SQL. Prior experience with Python will be helpful, but you can pick
-Python relatively fast if you have experience with other programming languages.
-
-Prior experience with data engineering is not required.
-
----
+st.error("To see 2023 streamlit ressources see this [link](https://streamlit.io/).")
 
 
 """, unsafe_allow_html=True)
