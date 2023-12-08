@@ -25,21 +25,9 @@ st.markdown("""
 
 ##### 👥 HI guys
 
-# 무지개색 스타일링 함수
-def rainbow_text(text):
-    colors = ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#4B0082', '#8B00FF']
-    return ''.join([f'<span style="color:{color};">{char}</span>' for char, color in zip(text, colors)])
+이곳은 데이터를 활용한 웹페이지입니다. 데이터의 힘으로 더 나은 인사이트를 찾고, 즐겁게 데이터를 탐험하는 여정에 함께 참여해보세요.
 
-# 메인 메시지
-main_message = "이곳은 데이터를 활용한 웹페이지입니다. 데이터의 힘으로 더 나은 인사이트를 찾고, 즐겁게 데이터를 탐험하는 여정에 함께 참여해보세요."
 
-# 무지개색 스타일링 적용
-styled_message = rainbow_text(main_message)
-
-# Streamlit에 무지개색 텍스트 표시
-st.markdown(styled_message, unsafe_allow_html=True)
-
-st.error("To see 2023 streamlit ressources see this [link](https://streamlit.io/).")
 
 
 """, unsafe_allow_html=True)
