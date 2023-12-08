@@ -28,7 +28,6 @@ if uploaded_file is not None:
 # 구글 시트 문서 이름을 사용하여 문서를 열거나 만듭니다.
 spreadsheet = gc.open_by_key('155H5Kk4W9vVwN03vHJwUIjRVw563Vx26l1Kd5mPxV-k')
 
-
 # 'main_raw' 시트를 선택합니다.
 worksheet = spreadsheet.worksheet('시트15')
 
@@ -51,12 +50,12 @@ gdf['SIG_CD'] = gdf['SIG_CD'].astype(str)
 # 'rgn2_cd' 열의 데이터 타입을 문자열로 변경
 df['rgn2_cd'] = df['rgn2_cd'].astype(str)
 
-# 'service_type' 선택을 위한 sidebar
-# [전체]도 선택할 수 있도록 수정
-selected_service_type = st.sidebar.selectbox('rgn1 선택', ['[전체]'] + list(df['rgn1_nm'].unique()))
+# 'rgn1_nm' 선택을 위한 sidebar
+# 전체도 할수 있도록 수정
+selected_rgn1_nm = st.sidebar.selectbox('rgn1 선택', ['전체'] + list(df['rgn1_nm'].unique()))
 
-# 선택된 'service_type'가 [전체]이면 모든 데이터를 보여주고, 그렇지 않으면 필터링
-filtered_data = df if selected_service_type == '[전체]' else df[df['rgn1_nm'] == selected_service_type]
+# 선택된 'rgn1_nm'만 필터링
+filtered_data = df if selected_rgn1_nm == '전체' else df[df['rgn1_nm'] == selected_rgn1_nm]
 
 # 정보 선택을 위한 sidebar
 selected_info = st.sidebar.selectbox('표시할 정보 선택', numeric_columns)
@@ -74,7 +73,7 @@ choropleth = folium.Choropleth(
     data=merged_data,
     columns=['SIG_CD', selected_info],
     key_on='feature.properties.SIG_CD',
-    fill_color='PuBuGn',  # 팔레트 변경
+    fill_color='YlOrRd',
     fill_opacity=0.7,
     line_opacity=0.2,
     legend_name=selected_info,
@@ -88,20 +87,13 @@ choropleth.geojson.add_child(folium.features.GeoJsonTooltip(['SIG_KOR_NM'], labe
 # 행정 경계 안에 평균 데이터값 추가
 for idx, row in merged_data.iterrows():
     avg_value = row[selected_info]
-
-    # 'null' 값이거나 값이 0.00%이면 회색 음영 처리
-    if pd.isna(avg_value) or math.isclose(avg_value, 0.0):
-        fill_color = 'white'
-    else:
-        fill_color = 'black'  # 다른 색상으로 지정하려면 원하는 색상을 지정
-
     folium.Marker(
         location=[row.geometry.centroid.y, row.geometry.centroid.x],
-        icon=folium.DivIcon(html=f'<div style="font-size: 10pt; color: {fill_color};">{avg_value:.2f}%</div>')
+        icon=folium.DivIcon(html=f'<div style="font-size: 10pt;">{avg_value:.2f}</div>')
     ).add_to(m)
 
 # TOP5 표시를 위한 코드 추가
-st.subheader(f'{selected_service_type} 서비스 타입 - {selected_info} TOP 5 지역',divider='rainbow')
+st.subheader(f'{selected_rgn1_nm} 서비스 타입 - {selected_info} TOP 5 지역',divider='rainbow')
 top5_data = filtered_data.groupby(['rgn1_nm', 'rgn2_nm'])[selected_info].sum().nlargest(5).reset_index()
 if not top5_data.empty:
     top5_data_table = top5_data.rename(columns={'rgn2_nm': '지역', selected_info: f'{selected_info} 합계'})
