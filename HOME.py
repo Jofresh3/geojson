@@ -21,7 +21,12 @@ st.markdown("""
 ## 📄 Contents
 
 ##### <a href="배달품질" target='_self'>배달품질</a>
+* 상품(배민/배라), 지역별 배달품질 현황 확인
 ##### <a href="OD 도입율" target='_self'>OD 도입율</a>
+* OD, STOD 도입율 확인
+##### <a href="외식업자료" target='_self'>외식업자료</a>
+* 통계청 외식업 통계 자료 확인
+##### <a href="침투율" target='_self'>침투율</a>
 
 ---
 
