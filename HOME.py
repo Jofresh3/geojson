@@ -26,7 +26,7 @@ st.markdown("""
 * OD, STOD 도입율 확인
 ##### <a href="외식업자료" target='_self'>외식업자료</a>
 * 통계청 외식업 통계 자료 확인
-##### <a href="침투율" target='_self'>침투율</a>
+##### <a href="시장매력도" target='_self'>시장매력도</a>
 
 ---
 
