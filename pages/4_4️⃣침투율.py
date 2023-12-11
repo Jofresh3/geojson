@@ -119,6 +119,7 @@ else:
 st.subheader("지도로 상세 확인",divider='rainbow')
 folium_static(m)
 
+st.markdown("""
 ---
 
 ### 📓TIP
