@@ -37,7 +37,7 @@ headers = data[1]
 df = pd.DataFrame(data[2:], columns=headers)
 
 # '총_주문수'와 같은 숫자 형식의 열을 숫자로 변환하고 NaN 값을 0으로 채웁니다.
-numeric_columns = ['합산 점수','잠재 점수','매력 점수','침투율 %','사업자수/이용자','핵심 연령대','배민 광고비','리스팅 광고수']
+numeric_columns = ['합산 점수','잠재 점수','매력 점수','침투율 %','사업자/이용자','핵심 연령대','배민 광고비','리스팅 광고수']
 df[numeric_columns] = df[numeric_columns].apply(pd.to_numeric, errors='coerce').fillna(0)
 
 # GeoJSON 파일 로드
@@ -59,12 +59,6 @@ filtered_data = df if selected_rgn1_nm == '전체' else df[df['rgn1_nm'] == sele
 
 # 정보 선택을 위한 sidebar
 selected_info = st.sidebar.selectbox('표시할 정보 선택', numeric_columns)
-
-# '침투율 %'에 대한 사용자 입력 범위
-penetration_range = st.sidebar.slider('침투율 % 범위 선택', float(filtered_data['침투율 %'].min()), float(filtered_data['침투율 %'].max()), (float(filtered_data['침투율 %'].min()), float(filtered_data['침투율 %'].max())))
-
-# 침투율 범위에 따라 데이터 필터링
-filtered_data = filtered_data[(filtered_data['침투율 %'] >= penetration_range[0]) & (filtered_data['침투율 %'] <= penetration_range[1])]
 
 # 데이터 병합
 merged_data = pd.merge(gdf, filtered_data, how='left', left_on='SIG_CD', right_on='rgn2_cd')
