@@ -106,3 +106,27 @@ else:
 # Folium 지도를 Streamlit에 표시
 st.subheader("지도로 상세 확인",divider='rainbow')
 folium_static(m)
+st.markdown("""
+
+---
+
+### 📓TIP
+
+확인하고 싶은 정보를 [표시할 정보 선택]에서 선택합니다.
+
+* OD 도입율 = OD 이용업주수 / 전체 업주수
+* 알뜰배달 도입율 = 알뜰배달 이용업주수 / 전체 업주수
+
+#### 위의 전체 업주수는 가입 가능 지역의 <span style="color:red; font-weight:bold;">전체 업주수</span>입니다.
+
+---
+
+
+""", unsafe_allow_html=True)
+
+hide_streamlit_style = """
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+</style>
+"""
