@@ -37,7 +37,7 @@ headers = data[0]
 df = pd.DataFrame(data[1:], columns=headers)
 
 # '총_주문수'와 같은 숫자 형식의 열을 숫자로 변환하고 NaN 값을 0으로 채웁니다.
-numeric_columns = ['광고비사용비중','1인당급여','사업체수','종사자수','매출액(월)','임차료','광고선전비','영업이익','영업이익율']
+numeric_columns = ['광고비사용비중','1인당급여','가게당임차료','사업체수','종사자수','매출액','매출액(월)','영업이익율']
 df[numeric_columns] = df[numeric_columns].apply(pd.to_numeric, errors='coerce').fillna(0)
 
 # GeoJSON 파일 로드
