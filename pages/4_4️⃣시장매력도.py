@@ -60,6 +60,13 @@ filtered_data = df if selected_rgn1_nm == '전체' else df[df['rgn1_nm'] == sele
 # 정보 선택을 위한 sidebar
 selected_info = st.sidebar.selectbox('표시할 정보 선택', numeric_columns)
 
+# '침투율 %'에 대한 사용자 입력 범위
+penetration_range = st.sidebar.slider('침투율 % 범위 선택', float(filtered_data['침투율 %'].min()), float(filtered_data['침투율 %'].max()), (float(filtered_data['침투율 %'].min()), float(filtered_data['침투율 %'].max())))
+
+# 침투율 범위에 따라 데이터 필터링
+filtered_data = filtered_data[(filtered_data['침투율 %'] >= penetration_range[0]) & (filtered_data['침투율 %'] <= penetration_range[1])]
+
+
 # 데이터 병합
 merged_data = pd.merge(gdf, filtered_data, how='left', left_on='SIG_CD', right_on='rgn2_cd')
 
