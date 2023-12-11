@@ -41,7 +41,7 @@ numeric_columns = ['침투율 %','사업자수/인구수(%)','인구수','핵심
 df[numeric_columns] = df[numeric_columns].apply(pd.to_numeric, errors='coerce').fillna(0)
 
 # GeoJSON 파일 로드
-geojson_path = 'streamlit/SIG_KOREA.json'
+geojson_path = 'SIG_KOREA.json'
 gdf = gpd.read_file(geojson_path)
 
 # 'gdf'의 'SIG_CD' 열의 데이터 타입을 문자열로 변경
@@ -119,3 +119,26 @@ else:
 st.subheader("지도로 상세 확인",divider='rainbow')
 folium_static(m)
 
+---
+
+### 📓TIP
+
+확인하고 정보를 [표시할 정보 선택]에서 선택합니다.
+합산 점수는 잠재 점수와 매력 점수의 합입니다.
+
+* 잠재 점수 = 사업자수, 침투율, 핵심연령대 등의 정보를 수치화
+* 매력 점수 = 광고비 매출, 배민 매출, 이용자수 등의 정보를 수치화 
+
+raw 자료는 우측 링크에서 확인바랍니다. [link](https://docs.google.com/spreadsheets/d/155H5Kk4W9vVwN03vHJwUIjRVw563Vx26l1Kd5mPxV-k/edit#gid=1702534238)            
+
+---
+
+
+""", unsafe_allow_html=True)
+
+hide_streamlit_style = """
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+</style>
+"""
