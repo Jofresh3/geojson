@@ -27,7 +27,8 @@ st.markdown("""
 ##### <a href="외식업자료" target='_self'>외식업자료</a>
 * 통계청 외식업 통계 자료 확인
 ##### <a href="시장매력도" target='_self'>시장매력도</a>
-
+##### <a href="피벗" target='_self'>피벗</a>
+* 피벗테이블로 원하는 정보 바로 확인하기!
 ---
 
 ## 👨‍🎓 Others
