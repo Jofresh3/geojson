@@ -31,8 +31,8 @@ st.markdown("""
 * 피벗테이블로 원하는 정보 바로 확인하기!
 ---
 
-## 👨‍🎓 Others
-
+## 👨‍🎓 How to use
+st.info("사용방법 👀[MOVE HERE▼](https://wiki.woowa.in/pages/viewpage.action?pageId=911253907)")
 
 
 
