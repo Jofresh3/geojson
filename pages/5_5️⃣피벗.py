@@ -12,7 +12,6 @@ import json
 import io
 import plotly.express as px
 
-pip install -r requirements.txt
 
 # 파일 업로드
 uploaded_file = st.sidebar.file_uploader("apikey 업로드", type=["json"])
