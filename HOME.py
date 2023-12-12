@@ -32,7 +32,7 @@ st.markdown("""
 ---
 
 ## 👨‍🎓 How to use
-* 사용방법 👀[MOVE HERE▼](https://wiki.woowa.in/pages/viewpage.action?pageId=911253907)
+* 사용방법 👀    [MOVE HERE▼](https://wiki.woowa.in/pages/viewpage.action?pageId=911253907)
 
 
 
