@@ -10,7 +10,7 @@ from google.oauth2.service_account import Credentials
 import os
 import json
 import io
-import plotly.express as px
+import plotly as px
 
 # 파일 업로드
 uploaded_file = st.sidebar.file_uploader("apikey 업로드", type=["json"])
