@@ -9,7 +9,7 @@ def main():
     revenue = price * total_sales
 
 
-    st.write('매출은', formatted_revenue, '원입니다.')
+    st.write('매출은',revenue, '원입니다.')
 
 if __name__ == "__main__":
     main()
