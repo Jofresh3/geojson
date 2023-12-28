@@ -1,8 +1,5 @@
 import streamlit as st
-import locale
 
-# 로케일 설정 (한국의 경우 'ko_KR'을 사용)
-locale.setlocale(locale.LC_ALL, 'ko_KR.UTF-8')
 
 def main():
     st.title("매출 계산기")
@@ -11,8 +8,7 @@ def main():
 
     revenue = price * total_sales
 
-    # 매출을 천 단위로 포맷하여 출력
-    formatted_revenue = locale.format_string("%d", revenue, grouping=True)
+
     st.write('매출은', formatted_revenue, '원입니다.')
 
 if __name__ == "__main__":
