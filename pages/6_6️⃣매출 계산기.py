@@ -4,7 +4,7 @@ import streamlit as st
 def main():
     st.title("매출 계산기")
     price = st.slider("객단가:", 1000, 100000, value=25000)
-    total_sales = st.slider("전체 판매 개수:", 1, 10000, value=500)
+    total_sales = st.slider("주문수:", 1, 10000, value=500)
 
     revenue = price * total_sales
 
